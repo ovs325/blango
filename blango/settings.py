@@ -21,7 +21,7 @@ class Dev(Configuration):
     SECRET_KEY = 'django-insecure-+sn%dpa!086+g+%44z9*^j^q-u4n!j(#wl)x9a%_1op@zz2+1-'
     DEBUG = values.BooleanValue(True)
     ALLOWED_HOSTS = values.ListValue(["localhost", "0.0.0.0", ".codio.io", "*"])
-
+    INTERNAL_IPS = ["192.168.11.179"]
 
     # Application definition
 
@@ -35,9 +35,11 @@ class Dev(Configuration):
         'crispy_forms',
         'crispy_bootstrap5',
         'blog',
+        "debug_toolbar",
     ]
     
     MIDDLEWARE = [
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
@@ -168,3 +170,4 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 ]
+
