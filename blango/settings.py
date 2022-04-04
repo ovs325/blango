@@ -21,8 +21,10 @@ class Dev(Configuration):
     SECRET_KEY = 'django-insecure-+sn%dpa!086+g+%44z9*^j^q-u4n!j(#wl)x9a%_1op@zz2+1-'
     DEBUG = values.BooleanValue(True)
     ALLOWED_HOSTS = values.ListValue(["localhost", "0.0.0.0", ".codio.io", "*"])
-    INTERNAL_IPS = ["192.168.10.93"]
+    INTERNAL_IPS = ["192.168.11.179"]
     AUTH_USER_MODEL = "blango_auth.User"
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    ACCOUNT_ACTIVATION_DAYS = 7
 
     # Application definition
 
