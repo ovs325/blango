@@ -21,7 +21,8 @@ class Dev(Configuration):
     SECRET_KEY = 'django-insecure-+sn%dpa!086+g+%44z9*^j^q-u4n!j(#wl)x9a%_1op@zz2+1-'
     DEBUG = values.BooleanValue(True)
     ALLOWED_HOSTS = values.ListValue(["localhost", "0.0.0.0", ".codio.io", "*"])
-    INTERNAL_IPS = ["192.168.11.179"]
+    INTERNAL_IPS = ["192.168.10.93"]
+    AUTH_USER_MODEL = "blango_auth.User"
 
     # Application definition
 
@@ -34,6 +35,7 @@ class Dev(Configuration):
         'django.contrib.staticfiles',
         'crispy_forms',
         'crispy_bootstrap5',
+        'blango_auth',
         'blog',
         "debug_toolbar",
     ]
