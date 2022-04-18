@@ -17,6 +17,11 @@ from django.views.decorators.vary import vary_on_headers, vary_on_cookie
 
 from rest_framework.exceptions import PermissionDenied
 
+from django.db.models import Q
+from django.utils import timezone
+
+from datetime import timedelta
+from django.http import Http404
 
 
 class UserDetail(generics.RetrieveAPIView):
@@ -71,5 +76,22 @@ class PostViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     @method_decorator(cache_page(120))
+    @method_decorator(vary_on_headers("Authorization", "Cookie"))
     def list(self, *args, **kwargs):
         return super(PostViewSet, self).list(*args, **kwargs)
+
+    def get_queryset(self):
+        if self.request.user.is_anonymous:
+            # только опубликованные
+            return self.queryset.filter(published_at__lte=timezone.now())
+
+        if not self.request.user.is_staff:
+            # доступно всем
+            return self.queryset
+
+        # Фильтр для владельца or 
+        return self.queryset.filter(
+            Q(published_at__lte=timezone.now()) | Q(author=self.request.user)
+        )
+
+
