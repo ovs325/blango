@@ -24,6 +24,7 @@ urlpatterns = [
     path("api/v1/", include("blog.api.urls")),
     path('admin/', admin.site.urls),
     path("", blog.views.index),
+    path("post-table/", blog.views.post_table, name="blog-post-table"),    
 ]
 
 if settings.DEBUG:
